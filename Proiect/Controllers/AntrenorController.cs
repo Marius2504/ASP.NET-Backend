@@ -41,12 +41,31 @@ namespace Proiect.Controllers
             }
         }
         [HttpGet("grouped")]
-        public IActionResult GetGrouped()
+        public IActionResult GetGrouped() //get all antrenors grouped by age
         {
             try
             {
                 var antrenors = _repository.GetAllGroupByAge();
            
+                return Ok(antrenors);
+            }
+            catch
+            {
+                return NoContent();
+            }
+        }
+        [HttpGet("Account-Antrenor")]
+        public IActionResult GetAccountAntrenors() // get all antrenors that have an account
+        {
+            try
+            {
+                var antrenors = _repository.GetAllAccountAntrenors();
+                //var retAntrenors = new List<AntrenorDTO>();
+
+                //foreach (var ant in antrenors)
+                //{
+                  //  retAntrenors.Add(new AntrenorDTO(ant));
+                //}
                 return Ok(antrenors);
             }
             catch
@@ -105,6 +124,9 @@ namespace Proiect.Controllers
         //await _repository.SaveAsync();
         //return Ok(new AntrenorDTO(ant));
         //}
+        
+
+
 
         [HttpGet("{name}")]
         public async Task<IActionResult> GetAntrenorByName(string name)

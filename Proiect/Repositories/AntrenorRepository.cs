@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Proiect.Entities;
+using Proiect.Entities.DTOs;
 using Proiect.Models;
 using Proiect.Repositories;
 using System;
@@ -18,6 +19,23 @@ namespace Proiect.Repositories
             var li = _context.Antrenors.GroupBy(a => a.varsta).Select(b=> new { Varsta = b.Key, Numar = b.Count() });
             //IEnumerable<Antrenor> ant = li.SelectMany(group => group);
             return li;
+        }
+        public IQueryable<dynamic> GetAllAccountAntrenors()
+        {
+            var entryPoint = (from ep in _context.Antrenors
+                              join e in _context.Users on ep.Id equals e.Id
+                              where ep.Nume == e.FirstName
+                              select new 
+                              {
+                                  ep.Id,
+                                  ep.varsta,
+                                  ep.telefon,
+                                  ep.Nume,
+                                  ep.Email,
+                                  ep.Optiuni
+                              });
+                                            
+            return entryPoint;
         }
 
         public async Task<Antrenor> GetById(int id)
