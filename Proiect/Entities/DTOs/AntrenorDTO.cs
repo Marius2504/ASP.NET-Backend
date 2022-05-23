@@ -21,7 +21,7 @@ namespace Proiect.Entities.DTOs
         {
             try
             {
-                    this.Id = ant.Id;
+                this.Id = ant.Id;
                 this.varsta = ant.varsta;
                 this.telefon = ant.telefon;
                 this.Nume = ant.Nume;

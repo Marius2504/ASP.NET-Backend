@@ -34,7 +34,41 @@ namespace Proiect.Controllers
                     retAntrenors.Add(new AntrenorDTO(ant));
                 }
                 return Ok(retAntrenors);
+            }
+            catch
+            {
+                return NoContent();
+            }
+        }
+        [HttpGet("grouped")]
+        public IActionResult GetGrouped()
+        {
+            try
+            {
+                var antrenors = _repository.GetAllGroupByAge();
+           
+                return Ok(antrenors);
+            }
+            catch
+            {
+                return NoContent();
+            }
+        }
+
+        [HttpGet("getFirst/{nr}")]
+        public IActionResult GetFirstAntrenors(int nr)
+        {
+            try
+            {
+                var antrenors = _repository.GetFirst(nr);
+                var retAntrenors = new List<AntrenorDTO>();
+
+                foreach (var ant in antrenors)
+                {
+                    retAntrenors.Add(new AntrenorDTO(ant));
                 }
+                return Ok(retAntrenors);
+            }
             catch
             {
                 return NoContent();
@@ -52,7 +86,7 @@ namespace Proiect.Controllers
             ant.Optiuni = dto.Optiuni;
             ant.OmId = dto.OmId;
 
-             _repository.Create(ant);
+            _repository.Create(ant);
             await _repository.SaveAsync();
             return Ok(new AntrenorDTO(ant));
         }

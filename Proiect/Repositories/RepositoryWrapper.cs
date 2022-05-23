@@ -1,4 +1,6 @@
-﻿using Proiect.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using Proiect.Entities.Auth;
+using Proiect.Models;
 using Proiect.Repositories;
 using System;
 using System.Collections.Generic;
@@ -7,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace Proiect.Repositories
 {
-    public class RepositoryWrapper : IRepositoryWrapper
+    public class RepositoryWrapper :GenericRepository<User>, IRepositoryWrapper
     {
         private readonly AppDbContext _context;
         private IUserRepository _user;
         private ISessionTokenRepository _sessionTokenRepository;
-        public RepositoryWrapper(AppDbContext context)
+        public RepositoryWrapper(AppDbContext context):base(context)
         {
             _context = context;
         }
@@ -39,5 +41,16 @@ namespace Proiect.Repositories
         {
             await _context.SaveChangesAsync();
         }
+        /*
+        public bool changeToAdmin(int id)
+        {
+            var usr = _context.Users.Where(a => a.Id.Equals(id)).FirstOrDefault();
+            usr.UserRoles.Clear();
+            usr.UserRoles.Role
+            Update(usr);
+            _context.SaveChanges();
+            return true;
+        }
+        */
     }
 }

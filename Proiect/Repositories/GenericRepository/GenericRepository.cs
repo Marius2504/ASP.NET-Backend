@@ -39,6 +39,7 @@ namespace Proiect.Repositories
         {
             return _context.Set<TEntity>().AsNoTracking();
         }
+        
 
         public async Task<TEntity> GetByIdAsync(int id)
         {

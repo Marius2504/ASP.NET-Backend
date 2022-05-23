@@ -85,7 +85,13 @@ namespace Proiect
                 };
             });
             services.AddScoped<IUserService, UserService>();
-            services.AddIdentity<User, Role>()
+            services.AddIdentity<User, Role>(o=> {
+                o.Password.RequireDigit = false;
+                o.Password.RequireLowercase = false;
+                o.Password.RequireUppercase = false;
+                o.Password.RequireNonAlphanumeric = false;
+                o.Password.RequiredLength = 6;
+            })
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
             services.AddScoped<SeedDb>();

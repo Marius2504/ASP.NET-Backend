@@ -51,7 +51,6 @@ C:\Users\dumitrescumarius03\source\repos\Proiect\Proiect\obj\Debug\net5.0\Proiec
 C:\Users\dumitrescumarius03\source\repos\Proiect\Proiect\obj\Debug\net5.0\Proiect.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\dumitrescumarius03\source\repos\Proiect\Proiect\obj\Debug\net5.0\Proiect.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\dumitrescumarius03\source\repos\Proiect\Proiect\obj\Debug\net5.0\staticwebassets\Proiect.StaticWebAssets.Manifest.cache
-C:\Users\dumitrescumarius03\source\repos\Proiect\Proiect\obj\Debug\net5.0\staticwebassets\Proiect.StaticWebAssets.xml
 C:\Users\dumitrescumarius03\source\repos\Proiect\Proiect\obj\Debug\net5.0\scopedcss\bundle\Proiect.styles.css
 C:\Users\dumitrescumarius03\source\repos\Proiect\Proiect\obj\Debug\net5.0\Proiect.RazorTargetAssemblyInfo.cache
 C:\Users\dumitrescumarius03\source\repos\Proiect\Proiect\obj\Debug\net5.0\Proiect.csproj.CopyComplete

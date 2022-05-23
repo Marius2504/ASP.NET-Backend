@@ -11,5 +11,8 @@ namespace Proiect.Repositories
     {
         Task<Antrenor> GetByName(string name);
         Task<Antrenor> GetById(int id);
+        IQueryable<Antrenor> GetFirst(int nr);
+        IQueryable<dynamic> GetAllGroupByAge();
+       
     }
 }

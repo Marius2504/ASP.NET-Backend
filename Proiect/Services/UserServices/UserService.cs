@@ -41,7 +41,13 @@ namespace Proiect.Services.UserServices
                 await _userManager.AddToRoleAsync(registerUser, UserRoleType.Admin);
                 return true;
             }
-            return false;
+            else
+            {
+                var errors = result.Errors;
+                var message = string.Join(", ", errors);
+                Console.WriteLine(message);
+                return false;
+            }
 
         }
         
