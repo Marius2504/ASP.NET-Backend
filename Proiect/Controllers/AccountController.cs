@@ -40,13 +40,13 @@ namespace Proiect.Controllers
                       
             var result = await _userService.RegisterUserAsync(dto);
 
-            if (result)
+            if (result == "success")
             {
                 return Ok(result);
             }
             
 
-            return BadRequest();
+            return BadRequest(result);
         }
         
         [HttpPost("login")]
@@ -55,9 +55,9 @@ namespace Proiect.Controllers
         {
             var token = await _userService.LoginUser(dto);
 
-            if (token == null)
+            if (token == "")
             {
-                return Unauthorized();
+                return BadRequest("User or password doesn't exist");
             }
             return Ok(new { token });
         }

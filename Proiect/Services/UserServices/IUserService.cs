@@ -8,7 +8,7 @@ namespace Proiect.Services.UserServices
 {
     public interface IUserService
     {
-        Task<bool> RegisterUserAsync(RegisterUserDTO dto);
+        Task<string> RegisterUserAsync(RegisterUserDTO dto);
         Task<string> LoginUser(LoginUserDTO dto);
     }
 }

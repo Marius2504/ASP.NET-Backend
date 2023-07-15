@@ -10,8 +10,8 @@ using Proiect.Models;
 namespace Proiect.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220103124223_UserRole")]
-    partial class UserRole
+    [Migration("20230316014506_UpdatedTrainerGym")]
+    partial class UpdatedTrainerGym
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -107,23 +107,20 @@ namespace Proiect.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Proiect.Entities.Adresa", b =>
+            modelBuilder.Entity("Proiect.Entities.Address", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("GymId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Judet")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Oras")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Strada")
+                    b.Property<string>("Street")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -131,52 +128,7 @@ namespace Proiect.Migrations
                     b.HasIndex("GymId")
                         .IsUnique();
 
-                    b.ToTable("Adresas");
-                });
-
-            modelBuilder.Entity("Proiect.Entities.Antrenor", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Nume")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("OmId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Optiuni")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("telefon")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("varsta")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Antrenors");
-                });
-
-            modelBuilder.Entity("Proiect.Entities.AntrenorGym", b =>
-                {
-                    b.Property<int>("GymId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("AntrenorId")
-                        .HasColumnType("int");
-
-                    b.HasKey("GymId", "AntrenorId");
-
-                    b.HasIndex("AntrenorId");
-
-                    b.ToTable("AntrenorGym");
+                    b.ToTable("Address");
                 });
 
             modelBuilder.Entity("Proiect.Entities.Auth.Role", b =>
@@ -306,6 +258,35 @@ namespace Proiect.Migrations
                     b.ToTable("AspNetUserRoles");
                 });
 
+            modelBuilder.Entity("Proiect.Entities.Client", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TrainerId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TrainerId");
+
+                    b.ToTable("Clients");
+                });
+
             modelBuilder.Entity("Proiect.Entities.Gym", b =>
                 {
                     b.Property<int>("Id")
@@ -313,16 +294,16 @@ namespace Proiect.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Nume")
+                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Optiuni")
+                    b.Property<string>("Options")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<float>("Rating")
                         .HasColumnType("real");
 
-                    b.Property<string>("Recenzii")
+                    b.Property<string>("Ratings")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -330,38 +311,64 @@ namespace Proiect.Migrations
                     b.ToTable("Gyms");
                 });
 
-            modelBuilder.Entity("Proiect.Entities.Om", b =>
+            modelBuilder.Entity("Proiect.Entities.SessionToken", b =>
+                {
+                    b.Property<string>("Jti")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("ExpirationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Jti");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("SessionTokens");
+                });
+
+            modelBuilder.Entity("Proiect.Entities.Trainer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AntrenorsId")
+                    b.Property<int>("Age")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("GymsId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Nume")
+                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Telefon")
+                    b.Property<string>("Options")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Varsta")
-                        .HasColumnType("int");
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AntrenorsId");
+                    b.ToTable("Trainers");
+                });
 
-                    b.HasIndex("GymsId");
+            modelBuilder.Entity("Proiect.Entities.TrainerGym", b =>
+                {
+                    b.Property<int>("TrainerId")
+                        .HasColumnType("int");
 
-                    b.ToTable("Oms");
+                    b.Property<int>("GymId")
+                        .HasColumnType("int");
+
+                    b.HasKey("TrainerId", "GymId");
+
+                    b.HasIndex("GymId");
+
+                    b.ToTable("TrainerGyms");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -400,34 +407,15 @@ namespace Proiect.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Proiect.Entities.Adresa", b =>
+            modelBuilder.Entity("Proiect.Entities.Address", b =>
                 {
-                    b.HasOne("Proiect.Entities.Gym", "Gyms")
-                        .WithOne("Adresas")
-                        .HasForeignKey("Proiect.Entities.Adresa", "GymId")
+                    b.HasOne("Proiect.Entities.Gym", "Gym")
+                        .WithOne("Address")
+                        .HasForeignKey("Proiect.Entities.Address", "GymId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Gyms");
-                });
-
-            modelBuilder.Entity("Proiect.Entities.AntrenorGym", b =>
-                {
-                    b.HasOne("Proiect.Entities.Antrenor", "Antrenors")
-                        .WithMany("AntrenorGyms")
-                        .HasForeignKey("AntrenorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Proiect.Entities.Gym", "Gyms")
-                        .WithMany("AntrenorGyms")
-                        .HasForeignKey("GymId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Antrenors");
-
-                    b.Navigation("Gyms");
+                    b.Navigation("Gym");
                 });
 
             modelBuilder.Entity("Proiect.Entities.Auth.UserRole", b =>
@@ -457,26 +445,45 @@ namespace Proiect.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Proiect.Entities.Om", b =>
+            modelBuilder.Entity("Proiect.Entities.Client", b =>
                 {
-                    b.HasOne("Proiect.Entities.Antrenor", "Antrenors")
-                        .WithMany("Oms")
-                        .HasForeignKey("AntrenorsId");
+                    b.HasOne("Proiect.Entities.Trainer", "Trainer")
+                        .WithMany("Clients")
+                        .HasForeignKey("TrainerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("Proiect.Entities.Gym", "Gyms")
-                        .WithMany()
-                        .HasForeignKey("GymsId");
-
-                    b.Navigation("Antrenors");
-
-                    b.Navigation("Gyms");
+                    b.Navigation("Trainer");
                 });
 
-            modelBuilder.Entity("Proiect.Entities.Antrenor", b =>
+            modelBuilder.Entity("Proiect.Entities.SessionToken", b =>
                 {
-                    b.Navigation("AntrenorGyms");
+                    b.HasOne("Proiect.Entities.Auth.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Oms");
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Proiect.Entities.TrainerGym", b =>
+                {
+                    b.HasOne("Proiect.Entities.Gym", "Gym")
+                        .WithMany("TrainerGyms")
+                        .HasForeignKey("GymId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Proiect.Entities.Trainer", "Trainer")
+                        .WithMany("TrainerGyms")
+                        .HasForeignKey("TrainerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Gym");
+
+                    b.Navigation("Trainer");
                 });
 
             modelBuilder.Entity("Proiect.Entities.Auth.Role", b =>
@@ -491,9 +498,16 @@ namespace Proiect.Migrations
 
             modelBuilder.Entity("Proiect.Entities.Gym", b =>
                 {
-                    b.Navigation("Adresas");
+                    b.Navigation("Address");
 
-                    b.Navigation("AntrenorGyms");
+                    b.Navigation("TrainerGyms");
+                });
+
+            modelBuilder.Entity("Proiect.Entities.Trainer", b =>
+                {
+                    b.Navigation("Clients");
+
+                    b.Navigation("TrainerGyms");
                 });
 #pragma warning restore 612, 618
         }

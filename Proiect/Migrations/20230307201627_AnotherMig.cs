@@ -2,7 +2,7 @@
 
 namespace Proiect.Migrations
 {
-    public partial class EntitatipLUS : Migration
+    public partial class AnotherMig : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

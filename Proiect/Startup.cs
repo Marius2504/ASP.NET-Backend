@@ -21,6 +21,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Proiect
@@ -37,6 +38,12 @@ namespace Proiect
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            
+
+            services.AddControllers().AddJsonOptions(x => {
+                x.JsonSerializerOptions.ReferenceHandler = null;
+                })
+                .AddNewtonsoftJson(x=> x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -45,14 +52,12 @@ namespace Proiect
             });
             services.AddDbContext<AppDbContext>(options =>
             {
-                options.UseSqlServer("Data Source=MARIUSPC;Initial Catalog=ProiectDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+                options.UseSqlServer("Data Source=MARIUSPC;Initial Catalog=ProiectDb1;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
             });
-            services.AddTransient<IAntrenorRepository, AntrenorRepository>();
-            //services.AddControllersWithViews()
-              //  .AddNewtonsoftJson(options =>
-               // options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-            //repository mare
+            services.AddTransient<ITrainerRepository,TrainerRepository>();
+         
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
+            services.AddScoped<IGymRepository,GymRepository>();
             //authentification
             services.AddAuthorization(options =>
             {

@@ -8,7 +8,7 @@ namespace Proiect.Repositories
     public interface IGenericRepository<TEntity>
     {
         // get data
-        IQueryable<TEntity> GetAll();
+        ICollection<TEntity> GetAll();
 
         Task<TEntity> GetByIdAsync(int id);
         //create

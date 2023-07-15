@@ -11,7 +11,7 @@ namespace Proiect.Repositories
 {
     public class RepositoryWrapper :GenericRepository<User>, IRepositoryWrapper
     {
-        private readonly AppDbContext _context;
+       // private readonly AppDbContext _context;
         private IUserRepository _user;
         private ISessionTokenRepository _sessionTokenRepository;
         public RepositoryWrapper(AppDbContext context):base(context)
@@ -37,10 +37,11 @@ namespace Proiect.Repositories
             }
         }
         
-        public async Task SaveAsync()
+        public new async Task SaveAsync()
         {
             await _context.SaveChangesAsync();
         }
+        
         /*
         public bool changeToAdmin(int id)
         {

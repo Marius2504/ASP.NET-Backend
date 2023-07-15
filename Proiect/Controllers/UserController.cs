@@ -16,7 +16,6 @@ namespace Proiect.Controllers
     public class UserController : ControllerBase
     {
         private readonly IRepositoryWrapper _repository;
-        private readonly UserManager<User> _userManager;
 
         public UserController(IRepositoryWrapper repository)
         {
@@ -30,23 +29,31 @@ namespace Proiect.Controllers
 
             return Ok(new { users });
         }
-        /*
-        [HttpPut("{id}")]
-        public async Task<IActionResult> ChangeEmail(int id)
+
+        [HttpPut("/changeEmail")]
+        public async Task<IActionResult> ChangeEmail([FromBody]User user)
         {
             try
             {
-                var y = _repository.User.FirstOrDefaultAsync(u => u.Email.Equals(email));
-                await _repository.SaveAsync();
-                return NoContent();
+                var foundUser = await _repository.User.GetByIdAsync(user.Id);
+                if (foundUser != null)
+                {
+                    if (foundUser.Name == user.Name &&
+                        foundUser.Email == user.Email) 
+                        {
+                            _repository.User.Update(user);
+                            await _repository.SaveAsync();
+                            return NoContent();
+                        }
+                    return NotFound("You can only change the email");
+                }
+                return NotFound("User doesn't exist");
             }
             catch
             {
                 return NotFound();
             }
-        }
-        */
-        
+        }  
         
     }
 }

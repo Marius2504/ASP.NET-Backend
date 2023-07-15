@@ -25,28 +25,28 @@ namespace Proiect.Services.UserServices
             _repository = repository;
         }
 
-        public async Task<bool> RegisterUserAsync(RegisterUserDTO dto)
+        public async Task<string> RegisterUserAsync(RegisterUserDTO dto)
         {
             var registerUser = new User();
 
             registerUser.Email = dto.Email;
-            registerUser.FirstName = dto.FirstName;
-            registerUser.LastName = dto.LastName;
-            registerUser.UserName = dto.Email;
+            registerUser.Name = dto.Name;
+            registerUser.UserName = dto.Name;
+            registerUser.Age = dto.Age;
+            registerUser.isTrainer = dto.isTrainer;
 
             var result = await _userManager.CreateAsync(registerUser, dto.Password);
 
             if (result.Succeeded)
             {
                 await _userManager.AddToRoleAsync(registerUser, UserRoleType.Admin);
-                return true;
+                return "success";
             }
             else
             {
                 var errors = result.Errors;
-                var message = string.Join(", ", errors);
-                Console.WriteLine(message);
-                return false;
+                
+                return errors.First().Code.ToString();
             }
 
         }
@@ -78,7 +78,7 @@ namespace Proiect.Services.UserServices
         {
             var subject = new ClaimsIdentity(new Claim[] {
                 new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.Name, user.FirstName + " " + user.LastName),
+                new Claim(ClaimTypes.Name, user.Name),
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(JwtRegisteredClaimNames.Jti, jti)
             });

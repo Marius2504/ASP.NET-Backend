@@ -10,6 +10,7 @@ namespace Proiect.Repositories
     public interface IGymRepository:IGenericRepository<Gym>
     {
         Task<Gym> GetRecenziiByName(string name);
+        Task<Gym> GetGymByName(string name);
         Task<List<Gym>> GetGymWithAdress(string name);
     }
 }

@@ -9,8 +9,9 @@ namespace Proiect.Entities.Auth
     public class User : IdentityUser<int>
     {
         public User() { }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string Name { get; set; }
+        public int Age { get; set; }
+        public bool isTrainer { get; set; }
 
         public ICollection<UserRole> UserRoles { get; set; }
     }

@@ -14,34 +14,41 @@ namespace Proiect.Models
         UserRole, IdentityUserLogin<int>, IdentityRoleClaim<int>, IdentityUserToken<int>>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
-        public DbSet<Antrenor> Antrenors{ get; set; }
-        public DbSet<Adresa> Adresas { get; set; }
-        public DbSet<Gym> Gyms { get; set; }
-        public DbSet<Om> Oms { get; set; }
-        public DbSet<SessionToken> SessionTokens { get; set; }
+        public virtual DbSet<Trainer> Trainers{ get; set; }
+        public virtual DbSet<Address> Address { get; set; }
+        public virtual DbSet<TrainerGym> TrainerGyms { get; set; }
+        public virtual DbSet<Gym> Gyms { get; set; }
+        public virtual DbSet<Client> Clients { get; set; }
+        public virtual DbSet<SessionToken> SessionTokens { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Antrenor>()
-                .HasMany(o => o.Oms)
-                .WithOne(a => a.Antrenors);
+            
+            modelBuilder.Entity<Trainer>()
+                .HasMany(o => o.Clients)
+                .WithOne(a => a.Trainer);
+           
+            
+            modelBuilder.Entity<TrainerGym>()
+                .HasKey(tg => new { tg.TrainerId, tg.GymId });
 
-            modelBuilder.Entity<AntrenorGym>().HasKey(arp => new {arp.GymId,arp.AntrenorId });
+            modelBuilder.Entity<TrainerGym>()
+                .HasOne(tg => tg.Gym)
+                .WithMany(g => g.TrainerGyms)
+                .HasForeignKey(g => g.GymId);
+
+            modelBuilder.Entity<TrainerGym>()
+                .HasOne(tg => tg.Trainer)
+                .WithMany(g => g.TrainerGyms)
+                .HasForeignKey(g => g.TrainerId);
+
+            modelBuilder.Entity<Gym>()
+                .Navigation(g => g.TrainerGyms)
+                .UsePropertyAccessMode(PropertyAccessMode.Property);
+            
             modelBuilder.Entity<UserRole>().HasKey(arp => new { arp.RoleId, arp.UserId });
 
-            modelBuilder.Entity<AntrenorGym>()
-                .HasOne(arp => arp.Antrenors)
-                .WithMany(af => af.AntrenorGyms)
-                .HasForeignKey(ur => ur.AntrenorId);
-
-            modelBuilder.Entity<AntrenorGym>()
-                .HasOne(arp => arp.Gyms)
-                .WithMany(of => of.AntrenorGyms)
-                .HasForeignKey(or => or.GymId);
-
-            modelBuilder.Entity<Adresa>()
-                .HasOne(a => a.Gyms)
-                .WithOne(b => b.Adresas);
+           
 
             // Autentificare
             modelBuilder.Entity<UserRole>()

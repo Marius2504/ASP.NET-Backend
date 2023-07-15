@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\dumitrescumarius03\\source\\repos\\Proiect\\Proiect\\Proiect.csproj": {}
+    "E:\\ProiectASPAngular\\Backend\\ASP.NET-Backend\\Proiect\\Proiect.csproj": {}
   },
   "projects": {
-    "C:\\Users\\dumitrescumarius03\\source\\repos\\Proiect\\Proiect\\Proiect.csproj": {
+    "E:\\ProiectASPAngular\\Backend\\ASP.NET-Backend\\Proiect\\Proiect.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\dumitrescumarius03\\source\\repos\\Proiect\\Proiect\\Proiect.csproj",
+        "projectUniqueName": "E:\\ProiectASPAngular\\Backend\\ASP.NET-Backend\\Proiect\\Proiect.csproj",
         "projectName": "Proiect",
-        "projectPath": "C:\\Users\\dumitrescumarius03\\source\\repos\\Proiect\\Proiect\\Proiect.csproj",
+        "projectPath": "E:\\ProiectASPAngular\\Backend\\ASP.NET-Backend\\Proiect\\Proiect.csproj",
         "packagesPath": "C:\\Users\\dumitrescumarius03\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\dumitrescumarius03\\source\\repos\\Proiect\\Proiect\\obj\\",
+        "outputPath": "E:\\ProiectASPAngular\\Backend\\ASP.NET-Backend\\Proiect\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\dumitrescumarius03\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -81,7 +81,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -93,7 +94,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.103\\RuntimeIdentifierGraph.json"
         }
       }
     }
